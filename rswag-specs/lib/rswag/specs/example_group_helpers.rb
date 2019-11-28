@@ -29,7 +29,7 @@ module Rswag
       end
 
       # These are array properties - note the splat operator
-      [ :tags, :consumes, :produces, :schemes ].each do |attr_name|
+      [ :tags, :consumes, :produces, :schemes, :content,  ].each do |attr_name|
         define_method(attr_name) do |*value|
           metadata[:operation][attr_name] = value
         end
@@ -58,6 +58,14 @@ module Rswag
         metadata[:response][:schema] = value
       end
 
+      def content(value)
+        metadata[:response][:content] = value
+      end
+
+      def examples(value)
+        metadata[:response][:examples] = value
+      end
+      
       def header(name, attributes)
         metadata[:response][:headers] ||= {}
         metadata[:response][:headers][name] = attributes
